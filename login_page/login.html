@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Management System - Logi
+    n & Register</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-image">
+      <div class="login-image-content">
+        <h2>Welcome to the Library</h2>
+        <p>Access thousands of books, journals, and resources at your fingertips.</p>
+      </div>
+    </div>
+    
+    <!-- Login Form (Fixed with Password) -->
+<div class="login-form-container" id="login-section">
+  <div class="login-header">
+    <h1>Library Management System</h1>
+    <p>Please log in to continue</p>
+  </div>
+
+  <form id="login-form">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>  <!-- ✅ Password field is back! -->
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" class="form-control" placeholder="Enter your password" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Select Role</label>
+      <div class="role-selector">
+        <div class="role-option">
+          <input type="radio" id="user-role" name="role" value="user" checked />
+          <label for="user-role">
+            <i class="fas fa-user role-icon"></i>
+            <span class="role-title">User</span>
+          </label>
+        </div>
+        <div class="role-option">
+          <input type="radio" id="admin-role" name="role" value="admin" />
+          <label for="admin-role">
+            <i class="fas fa-user-shield role-icon"></i>
+            <span class="role-title">Admin</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
+
+  <div class="login-footer">
+    <p>Don't have an account? <a href="#" id="show-register">Register Now</a></p>
+  </div>
+</div>
+
+
+    <!-- Registration Form (Initially Hidden) -->
+<div class="login-form-container" id="register-section" style="display: none;">
+  <div class="login-header">
+    <h1>Create an Account</h1>
+    <p>Fill in the details to register</p>
+  </div>
+
+  <form id="register-form">
+    <div class="form-group">
+      <label for="reg-firstname">First Name</label>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="reg-firstname" class="form-control" placeholder="Enter first name" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="reg-lastname">Last Name</label>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="reg-lastname" class="form-control" placeholder="Enter last name" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="reg-email">Email Address</label>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="reg-email" class="form-control" placeholder="Enter email" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="reg-phone">Phone Number</label>
+      <div class="input-group">
+        <i class="fas fa-phone"></i>
+        <input type="tel" id="reg-phone" class="form-control" placeholder="Enter phone number" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="reg-address">Address</label>
+      <div class="input-group">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" id="reg-address" class="form-control" placeholder="Enter address" required />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+
+  <div class="login-footer">
+    <p>Already have an account? <a href="#" id="show-login">Log in</a></p>
+  </div>
+   </div>
+
+  </div>
+  <script src="login.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin_dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>LibraryHub</span>
+                </div>
+                <button id="toggle-sidebar" class="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">
+                    <img id="admin-avatar" src="https://ui-avatars.com/api/?name=Admin+User&background=6C5CE7&color=fff" alt="Admin Avatar">
+                </div>
+                <div class="user-info">
+                    <h3 id="admin-name">Admin User</h3>
+                    <p>Librarian</p>
+                </div>
+            </div>            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard-section" data-section="dashboard-section"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                    <li><a href="#books-section" data-section="books-section"><i class="fas fa-book"></i> Books</a></li>
+                    <li><a href="#members-section" data-section="members-section"><i class="fas fa-users"></i> Members</a></li>
+                    <li><a href="#loans-section" data-section="loans-section"><i class="fas fa-hand-holding"></i> Loans</a></li>
+                    <li><a href="#reviews-section" data-section="reviews-section"><i class="fas fa-star"></i> Reviews</a></li>
+                    <li><a href="#interlibrary-section" data-section="interlibrary-section"><i class="fas fa-exchange-alt"></i> Interlibrary</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <span class="theme-label">Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <a href="#" id="logout-btn" class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="global-search" placeholder="Search for books, members, loans...">
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="notifications-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <button class="btn-icon" id="settings-btn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="dashboard-section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-line"></i> Admin Dashboard</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-books">Loading...</h3>
+                                    <p>Total Books Available</p>
+                                </div>                                
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="total-members">328</h3>
+                                    <p>Active Members</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-hand-holding"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="active-loans">87</h3>
+                                    <p>Active Loans</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="returned-books">12</h3>
+                                    <p>Books Returned</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-row">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Recent Activities</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul class="activity-list">
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-book"></i></div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">New Book Added</div>
+                                                <div class="activity-details">"The Midnight Library" by Matt Haig</div>
+                                                <div class="activity-time">Today, 10:30 AM</div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">New Member Registered</div>
+                                                <div class="activity-details">Sarah Johnson (ID: M0045)</div>
+                                                <div class="activity-time">Today, 9:15 AM</div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-hand-holding"></i></div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">Book Loan Approved</div>
+                                                <div class="activity-details">"1984" loaned to Michael Brown</div>
+                                                <div class="activity-time">Yesterday, 3:45 PM</div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-undo"></i></div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">Book Returned</div>
+                                                <div class="activity-details">"To Kill a Mockingbird" returned by James Wilson</div>
+                                                <div class="activity-time">Yesterday, 2:30 PM</div>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-money-bill-wave"></i></div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">Fine Collected</div>
+                                                <div class="activity-details">$5.50 from Emily Davis for late return</div>
+                                                <div class="activity-time">Yesterday, 11:20 AM</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Pending Requests</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul class="request-list">
+                                        <li class="request-item">
+                                            <div class="request-info">
+                                                <div class="request-title">Loan Request</div>
+                                                <div class="request-details">Robert Smith requested "Dune" by Frank Herbert</div>
+                                                <div class="request-time">2 hours ago</div>
+                                            </div>
+                                            <div class="request-actions">
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="request-item">
+                                            <div class="request-info">
+                                                <div class="request-title">Loan Request</div>
+                                                <div class="request-details">Jennifer Lee requested "The Great Gatsby" by F. Scott Fitzgerald</div>
+                                                <div class="request-time">3 hours ago</div>
+                                            </div>
+                                            <div class="request-actions">
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="request-item">
+                                            <div class="request-info">
+                                                <div class="request-title">Due Date Extension</div>
+                                                <div class="request-details">David Miller requested 7-day extension for "The Hobbit"</div>
+                                                <div class="request-time">5 hours ago</div>
+                                            </div>
+                                            <div class="request-actions">
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </li>
+                                        <li class="request-item">
+                                            <div class="request-info">
+                                                <div class="request-title">Interlibrary Loan</div>
+                                                <div class="request-details">Patricia Clark requested "Rare Manuscripts of the 18th Century"</div>
+                                                <div class="request-time">Yesterday</div>
+                                            </div>
+                                            <div class="request-actions">
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-row">
+                            <div class="dashboard-card full-width">
+                                <div class="card-header">
+                                    <h3>Popular Books This Month</h3>
+                                </div>
+                                <div class="card-content">
+                                    <div class="popular-books">
+                                        <div class="popular-book">
+                                            <div class="book-cover">
+                                                <img src="https://m.media-amazon.com/images/I/71kxa1-0mfL._AC_UF1000,1000_QL80_.jpg" alt="1984 cover">
+                                            </div>
+                                            <div class="book-info">
+                                                <div class="book-title">1984</div>
+                                                <div class="book-author">George Orwell</div>
+                                                <div class="book-stats">
+                                                    <span><i class="fas fa-book-reader"></i> 24 loans</span>
+                                                    <span><i class="fas fa-star"></i> 4.6/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popular-book">
+                                            <div class="book-cover">
+                                                <img src="https://m.media-amazon.com/images/I/71FxgtFKcQL._AC_UF1000,1000_QL80_.jpg" alt="To Kill a Mockingbird cover">
+                                            </div>
+                                            <div class="book-info">
+                                                <div class="book-title">To Kill a Mockingbird</div>
+                                                <div class="book-author">Harper Lee</div>
+                                                <div class="book-stats">
+                                                    <span><i class="fas fa-book-reader"></i> 19 loans</span>
+                                                    <span><i class="fas fa-star"></i> 4.8/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popular-book">
+                                            <div class="book-cover">
+                                                <img src="https://m.media-amazon.com/images/I/71FTb9X6wsL._AC_UF1000,1000_QL80_.jpg" alt="The Great Gatsby cover">
+                                            </div>
+                                            <div class="book-info">
+                                                <div class="book-title">The Great Gatsby</div>
+                                                <div class="book-author">F. Scott Fitzgerald</div>
+                                                <div class="book-stats">
+                                                    <span><i class="fas fa-book-reader"></i> 17 loans</span>
+                                                    <span><i class="fas fa-star"></i> 4.5/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popular-book">
+                                            <div class="book-cover">
+                                                <img src="https://m.media-amazon.com/images/I/710+HcoP38L._AC_UF1000,1000_QL80_.jpg" alt="The Hobbit cover">
+                                            </div>
+                                            <div class="book-info">
+                                                <div class="book-title">The Hobbit</div>
+                                                <div class="book-author">J.R.R. Tolkien</div>
+                                                <div class="book-stats">
+                                                    <span><i class="fas fa-book-reader"></i> 15 loans</span>
+                                                    <span><i class="fas fa-star"></i> 4.7/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popular-book">
+                                            <div class="book-cover">
+                                                <img src="https://m.media-amazon.com/images/I/71Q1tPupKjL._AC_UF1000,1000_QL80_.jpg" alt="Pride and Prejudice cover">
+                                            </div>
+                                            <div class="book-info">
+                                                <div class="book-title">Pride and Prejudice</div>
+                                                <div class="book-author">Jane Austen</div>
+                                                <div class="book-stats">
+                                                    <span><i class="fas fa-book-reader"></i> 12 loans</span>
+                                                    <span><i class="fas fa-star"></i> 4.7/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Books Section -->
+                <section id="books-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-book"></i> Books Management</h2>
+                        <button id="add-book-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add New Book
+                        </button>
+                    </div>
+                    <div class="section-content">
+                        <div class="filter-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="book-search" placeholder="Search books by title, author, or ID...">
+                                <button id="book-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            <div class="filter-options">
+                                <select id="book-filter-genre" class="filter-select">
+                                    <option value="">All Genres</option>
+                                    <option value="Classic Fiction">Classic Fiction</option>
+                                    <option value="Dystopian Fiction">Dystopian Fiction</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Science Fiction">Science Fiction</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Mystery">Mystery</option>
+                                    <option value="Non-Fiction">Non-Fiction</option>
+                                </select>
+                                <select id="book-filter-status" class="filter-select">
+                                    <option value="">Show All Books</option>
+                                    <!-- <option value="Available">Available</option>
+                                    <option value="On Loan">On Loan</option>
+                                    <option value="Reserved">Reserved</option> -->
+                                    <option value="Processing">Show No Books</option>
+                                </select>
+                                <button id="book-filter-reset" class="btn btn-secondary">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="books-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Publisher</th>
+                                        <th>Genre</th>
+                                        <th>Year</th>
+                                        <th>Pages</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <button class="pagination-btn" data-page="prev"><i class="fas fa-chevron-left"></i></button>
+                                <span class="pagination-info">Page <span id="current-page">1</span> of <span id="total-pages">5</span></span>
+                                <button class="pagination-btn" data-page="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Members Section -->
+                <section id="members-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Members Management</h2>
+                        <button id="add-member-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add New Member
+                        </button>
+                    </div>
+                    <div class="section-content">
+                        <div class="filter-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="member-search" placeholder="Search members by name, email, or ID...">
+                                <button id="member-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            <div class="filter-options">
+                                <!-- <select id="member-filter-type" class="filter-select">
+                                    <option value="">All Types</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Faculty">Faculty</option>
+                                    <option value="Staff">Staff</option>
+                                    <option value="Public">Public</option>
+                                </select> -->
+                                <!-- <select id="member-filter-status" class="filter-select">
+                                    <option value="">All Statuses</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                    <option value="Suspended">Suspended</option>
+                                </select> -->
+                                <!-- <button id="member-filter-reset" class="btn btn-secondary">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button> -->
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="members-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Type</th>
+                                        <th>Join Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <button id="prev-page-btn" class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                                <span class="pagination-info">Page <span id="members-current-page">1</span> of <span id="members-total-pages">1</span></span>
+                                <button id="next-page-btn" class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                            </div>                            
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Loans Section -->
+                <section id="loans-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-hand-holding"></i> Loans Management</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="filter-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="loan-search" placeholder="Search loans by book title, member name, or ID...">
+                                <button id="loan-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="loans-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Book</th>
+                                        <th>Member</th>
+                                        <th>Loan Date</th>
+                                        <th>Due Date</th>
+                                        <th>Return Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reviews Section -->
+                <section id="reviews-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-star"></i> Reviews Management</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="filter-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="review-search" placeholder="Search reviews by book title, member name...">
+                                <button id="review-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="reviews-container">
+                            <!-- Reviews will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interlibrary Loans Section -->
+                <section id="interlibrary-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-exchange-alt"></i> Interlibrary Loans</h2>
+                        <!-- <button id="add-interlibrary-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Request
+                        </button> -->
+                    </div>                    
+                    <div class="section-content">
+                        <div class="filter-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="interlibrary-search" placeholder="Search interlibrary loans by book title, library...">
+                                <button id="interlibrary-search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            <div class="filter-options">
+                                <select id="interlibrary-filter-status" class="filter-select">
+                                    <option value="">All Statuses</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="In Transit">In Transit</option>
+                                    <option value="Available">Available</option>
+                                    <option value="Returned">Returned</option>
+                                    <option value="Denied">Denied</option>
+                                </select>
+                                <select id="interlibrary-filter-library" class="filter-select">
+                                    <option value="">All Libraries</option>
+                                    <option value="Central City Library">PDEU Library</option>
+                                    <option value="Metro University Library">GNLU Library</option>
+                                    <option value="National Research Library">IIT Gandhinagar Library</option>
+                                    <option value="Public Archives">AU Archives</option>
+                                </select>
+                                <button id="interlibrary-filter-reset" class="btn btn-secondary">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="interlibrary-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Book Title</th>
+                                        <th>Author</th>
+                                        <th>Member</th>
+                                        <th>Library</th>
+                                        <th>Request Date</th>
+                                        <!-- <th>Status</th> -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Table rows will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <button class="pagination-btn" data-page="prev"><i class="fas fa-chevron-left"></i></button>
+                                <span class="pagination-info">Page <span id="interlibrary-current-page">1</span> of <span id="interlibrary-total-pages">5</span></span>
+                                <button class="pagination-btn" data-page="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+
+    
+    <!-- Add/Edit Book Modal -->
+<div id="edit-book-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Book</h3>
+            <button class="close-modal" onclick="closeEditModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="edit-book-form">
+                <input type="hidden" id="edit-book-id">
+                
+                <div class="form-group">
+                    <label for="edit-title">Title</label>
+                    <input type="text" id="edit-title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-author">Author</label>
+                    <input type="text" id="edit-author" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-publisher">Publisher</label>
+                    <input type="text" id="edit-publisher" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-genre">Genre</label>
+                    <select id="edit-genre" required>
+                        <option value="">Select Genre</option>
+                        <option value="Classic Fiction">Classic Fiction</option>
+                        <option value="Dystopian Fiction">Dystopian Fiction</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Non-Fiction">Non-Fiction</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-year">Publication Year</label>
+                    <input type="number" id="edit-year" min="1000" max="2099" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-pages">Pages</label>
+                    <input type="number" id="edit-pages" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-summary">Summary</label>
+                    <textarea id="edit-summary" rows="3" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary"  >Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Book Modal -->
+<div id="add-book-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Book</h3>
+            <button class="close-modal" onclick="closeAddModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="add-book-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add-title">Title *</label>
+                        <input type="text" id="add-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-author">Author *</label>
+                        <input type="text" id="add-author" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add-publisher">Publisher *</label>
+                        <input type="text" id="add-publisher" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-genre">Genre *</label>
+                        <select id="add-genre" required>
+                            <option value="">Select Genre</option>
+                            <option value="Classic Fiction">Classic Fiction</option>
+                            <option value="Dystopian Fiction">Dystopian Fiction</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Science Fiction">Science Fiction</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Non-Fiction">Non-Fiction</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add-year">Publication Year *</label>
+                        <input type="number" id="add-year" min="1000" max="2099" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-pages">Pages</label>
+                        <input type="number" id="add-pages" min="1">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="add-copies">Copies Available *</label>
+                        <input type="number" id="add-copies" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-language">Language</label>
+                        <input type="text" id="add-language">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="add-summary">Summary</label>
+                    <textarea id="add-summary" rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <!-- Add/Edit Member Modal -->
+<div id="member-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="member-modal-title">Add New Member</h3>
+            <button class="close-modal" onclick="closeMemberModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="member-form">
+                <input type="hidden" id="member-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-first-name">First Name *</label>
+                        <input type="text" id="member-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-last-name">Last Name *</label>
+                        <input type="text" id="member-last-name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-email">Email *</label>
+                        <input type="email" id="member-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-phone">Phone *</label>
+                        <input type="tel" id="member-phone" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-type">Membership Type *</label>
+                        <select id="member-type" required>
+                            <option value="">Select Type</option>
+                            <option value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Regular">Regular</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-status">Status *</label>
+                        <select id="member-status" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Suspended">Suspended</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-address">Address *</label>
+                    <textarea id="member-address" rows="3" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeMemberModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <!-- Loan Details Modal -->
+    <div id="loan-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Loan Details</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="loan-details-content">
+                    <!-- Loan details will be populated by JavaScript -->
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="loan-details-close">Close</button>
+                    <button type="button" class="btn btn-warning" id="loan-extend">Extend Due Date</button>
+                    <button type="button" class="btn btn-success" id="loan-return">Mark as Returned</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extend Loan Modal -->
+    <div id="extend-loan-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Extend Loan Due Date</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="extend-loan-form">
+                    <input type="hidden" id="extend-loan-id">
+                    <div class="form-group">
+                        <label for="extend-current-due-date">Current Due Date</label>
+                        <input type="text" id="extend-current-due-date" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="extend-new-due-date">New Due Date</label>
+                        <input type="date" id="extend-new-due-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="extend-reason">Reason for Extension</label>
+                        <textarea id="extend-reason" rows="3" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="extend-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="extend-save">Save Extension</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Action</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Are you sure you want to proceed with this action?</p>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="confirm-cancel">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-yes">Yes, Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div id="notifications-panel" class="side-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <button class="close-panel"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Overdue Books</div>
+                    <div class="notification-message">5 books are overdue today. Check the loans section.</div>
+                    <div class="notification-time">Just now</div>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-hand-holding"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">New Loan Request</div>
+                    <div class="notification-message">Robert Smith requested "Dune" by Frank Herbert</div>
+                    <div class="notification-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">New Member Registration</div>
+                    <div class="notification-message">Sarah Johnson has registered as a new member</div>
+                    <div class="notification-time">Today, 9:15 AM</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Interlibrary Loan Request</div>
+                    <div class="notification-message">Patricia Clark requested "Rare Manuscripts of the 18th Century"</div>
+                    <div class="notification-time">Yesterday</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Fine Collected</div>
+                    <div class="notification-message">$5.50 from Emily Davis for late return</div>
+                    <div class="notification-time">Yesterday, 11:20 AM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="side-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <button class="close-panel"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content">
+            <div class="settings-section">
+                <h4>Display Settings</h4>
+                <div class="settings-option">
+                    <label for="font-size">Font Size</label>
+                    <select id="font-size" class="settings-select">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+                <div class="settings-option">
+                    <label for="items-per-page">Items Per Page</label>
+                    <select id="items-per-page" class="settings-select">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>Notification Settings</h4>
+                <div class="settings-option">
+                    <label for="email-notifications">Email Notifications</label>
+                    <label class="switch">
+                        <input type="checkbox" id="email-notifications" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <label for="browser-notifications">Browser Notifications</label>
+                    <label class="switch">
+                        <input type="checkbox" id="browser-notifications" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>System Settings</h4>
+                <div class="settings-option">
+                    <label for="auto-logout">Auto Logout (minutes)</label>
+                    <select id="auto-logout" class="settings-select">
+                        <option value="15">15</option>
+                        <option value="30" selected>30</option>
+                        <option value="60">60</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary settings-save">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <div id="edit-book-modal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Book</h3>
+            <label>Book ID:</label>
+            <input type="text" id="edit-book-id" disabled>
+    
+            <label>Title:</label>
+            <input type="text" id="edit-title">
+    
+            <label>Author:</label>
+            <input type="text" id="edit-author">
+    
+            <label>Publisher:</label>
+            <input type="text" id="edit-publisher">
+    
+            <label>Genre:</label>
+            <input type="text" id="edit-genre">
+    
+            <label>Year:</label>
+            <input type="number" id="edit-year">
+    
+            <label>Pages:</label>
+            <input type="number" id="edit-pages">
+    
+            <label>Summary:</label>
+            <textarea id="edit-summary"></textarea>
+    
+            <button onclick="saveBookChanges()">Save Changes</button>
+            <button onclick="closeEditModal()">Cancel</button>
+        </div>
+    </div>
+    
+
+    <script src="admin_dashboard.js"></script>
+</body>
+</html>
+

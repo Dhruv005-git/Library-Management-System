@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - User Dashboard</title>
+    <link rel="stylesheet" href="user_dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                    <span>LibraryHub</span>
+                </div>
+                <button id="toggle-sidebar" class="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">
+                    <img id="user-avatar" src="https://ui-avatars.com/api/?name=John+Doe&background=6C5CE7&color=fff" alt="User Avatar">
+                </div>
+                <div class="user-info">
+                    <h3 id="user-name">Welcome, User!</h3>
+                    <p>Student</p>
+                </div>                                
+                
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#search-section"><i class="fas fa-search"></i> Search Books</a></li>
+                    <li><a href="#loan-section"><i class="fas fa-hand-holding"></i> Request Loan</a></li>
+                    <li><a href="#review-section"><i class="fas fa-star"></i> Rate & Review</a></li>
+                    <li><a href="#interlibrary-section"><i class="fas fa-exchange-alt"></i> Interlibrary Loans</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <span class="theme-label">Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <a href="#" id="logout-btn" class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search books...">
+                    <div id="book-list"></div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="notifications-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="btn-icon" id="settings-btn">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <h1>Welcome back, <span id="welcome-name">User</span>!</h1>
+                        <p>Explore our vast collection of books and manage your loans.</p>
+                    </div>
+                    <div class="welcome-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Loan</h3>
+                                <p>Books Easily!</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>New Feature 🔥</h3>
+                                <p>InterLibrary Loan Available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Books Section -->
+                <section id="search-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-search"></i> Search Books</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="search-container">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="search-input-bottom" placeholder="Enter book title, author, or keyword...">
+                                <button id="search-btn" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                        <div id="search-results" class="results-container">
+                            <div class="empty-state">
+                                <i class="fas fa-search"></i>
+                                <p>Search for books to see results</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Request Loan Section -->
+                <section id="loan-section" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-hand-holding"></i> Request Book Loan</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="loan-container">
+                            <div class="input-group">
+                                <label for="book-id-input">Book ID</label>
+                                <input type="text" id="book-id-input" placeholder="Enter Book ID (e.g., B001)">
+                            </div>
+                            <button id="request-loan-btn" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Request Loan
+                            </button>
+                        </div>
+                        <div id="loan-message" class="message-container"></div>
+                    </div>
+                </section>
+
+         <!-- Rate & Review Section -->
+<section id="review-section" class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fas fa-star"></i> Rate & Review Books</h2>
+    </div>
+    <div class="section-content">
+        <div class="review-container">
+            <!-- Replace dropdown with input for Book ID -->
+            <div class="input-group">
+                <label for="book-id">Book ID</label>
+                <input type="text" id="book-id" class="form-control" placeholder="Enter Book ID">
+            </div>
+            <div class="rating-container">
+                <label>Rating</label>
+                <div class="star-rating">
+                    <span class="star" data-rating="1"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="2"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="3"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="4"><i class="far fa-star"></i></span>
+                    <span class="star" data-rating="5"><i class="far fa-star"></i></span>
+                </div>
+                <input type="hidden" id="rating-value" value="0">
+            </div>
+            <div class="input-group">
+                <label for="review-text">Your Review</label>
+                <textarea id="review-text" placeholder="Write your review here..." class="form-control"></textarea>
+            </div>
+            <button id="submit-review-btn" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </div>
+        <div id="review-message" class="message-container"></div>
+    </div>
+</section>
+
+              <!-- Interlibrary Loan Section -->
+<section id="interlibrary-section" class="dashboard-section">
+    <div class="section-header">
+        <h2><i class="fas fa-exchange-alt"></i> Interlibrary Loans</h2>
+    </div>
+    <div class="section-content">
+        <p class="section-description">Request books from partner libraries when they're not available in our collection.</p>
+        <div class="interlibrary-container">
+            <div class="input-group">
+                <label for="interlibrary-book-id">Book ID</label>
+                <input type="text" id="interlibrary-book-id" placeholder="Enter book ID">
+            </div>
+            <div class="input-group">
+                <label for="interlibrary-library">Select Partner Library</label>
+                <select id="interlibrary-library" class="form-control">
+                    <option value="">Select a library...</option>
+                    <option value="central">PDEU Library</option>
+                    <option value="metro">GNLU Library</option>
+                    <option value="national">IIT Gandhinagr Library</option>
+                    <option value="public">AU Archives</option>
+                </select>
+            </div>
+            <button id="request-interlibrary-btn" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Request
+            </button>
+        </div>
+        <div id="interlibrary-message" class="message-container"></div>
+        
+        <div class="interlibrary-history">
+            <h3>Your Interlibrary Loan Requests</h3>
+            <div id="interlibrary-history" class="results-container">
+                <div class="empty-state">
+                    <i class="fas fa-exchange-alt"></i>
+                    <p>No interlibrary loan requests yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Book Details Modal -->
+<div id="book-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-overlay"></div> <!-- Clickable overlay -->
+    <div class="modal-container">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div id="book-details"></div>
+        </div>
+    </div>
+</div>
+
+    <!-- Notifications Panel -->
+    <div id="notifications-panel" class="side-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <button class="close-panel"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content">
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Book Due Soon</div>
+                    <div class="notification-message">Your loan for "1984" is due in 3 days.</div>
+                    <div class="notification-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="notification-item unread">
+                <div class="notification-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Review Appreciated</div>
+                    <div class="notification-message">Thank you for reviewing "The Great Gatsby"!</div>
+                    <div class="notification-time">Yesterday</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Loan Approved</div>
+                    <div class="notification-message">Your request for "The Hobbit" has been approved.</div>
+                    <div class="notification-time">3 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="side-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-cog"></i> Settings</h3>
+            <button class="close-panel"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="panel-content">
+            <div class="settings-section">
+                <h4>Account Settings</h4>
+                <div class="settings-option">
+                    <label for="email-notifications">Email Notifications</label>
+                    <label class="switch">
+                        <input type="checkbox" id="email-notifications" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="settings-option">
+                    <label for="sms-notifications">SMS Notifications</label>
+                    <label class="switch">
+                        <input type="checkbox" id="sms-notifications">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>Display Settings</h4>
+                <div class="settings-option">
+                    <label for="font-size">Font Size</label>
+                    <select id="font-size" class="settings-select">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>Privacy Settings</h4>
+                <div class="settings-option">
+                    <label for="show-history">Keep me logged In</label>
+                    <label class="switch">
+                        <input type="checkbox" id="show-history" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary settings-save">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <script src="user_dashboard.js"></script>
+    <script>
+        document.getElementById('font-size').addEventListener('change', function() {
+            let selectedSize = this.value;
+            let body = document.body;
+    
+            if (selectedSize === 'small') {
+                body.style.fontSize = '12px';
+            } else if (selectedSize === 'medium') {
+                body.style.fontSize = '16px';
+            } else if (selectedSize === 'large') {
+                body.style.fontSize = '20px';
+            }
+        });
+    </script>
+    
+</body>
+</html>
+
