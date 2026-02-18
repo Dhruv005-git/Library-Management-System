@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", function () {
             sessionStorage.setItem("token", data.token);
 
             // Redirect after session is set
-            window.location.replace("http://127.0.0.1:3000/AdminDashboard/admin_dashboard.html");
+            window.location.href = "../AdminDashboard/admin_dashboard.html";
             } else {
             // Store user info
             sessionStorage.setItem("memberId", data.user.memberId);
             sessionStorage.setItem("user", JSON.stringify(data.user));
             sessionStorage.setItem("token", data.token);
 
-            window.location.replace("http://127.0.0.1:3000/UserDashboard/user_dashboard.html");
+            window.location.href = "../UserDashboard/user_dashboard.html";
             }
         } catch (error) {
             alert(error.message || "Something went wrong. Please try again.");
