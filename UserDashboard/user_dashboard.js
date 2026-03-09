@@ -890,7 +890,7 @@ function changeFontSize(size) {
 // Logout
 function logout() {
   sessionStorage.removeItem("memberId"); // or whatever key you used for login
-  window.location.replace("/login_page/login.html");
+  window.location.replace("/Finale/login_page/login.html");
 }
 
 // Show Toast Notification

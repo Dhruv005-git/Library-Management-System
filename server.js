@@ -1,10 +1,10 @@
-import express from 'express';
-import mysql from 'mysql2/promise';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import mysql from 'mysql2/promise';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import jwt from 'jsonwebtoken';
 
 // Load environment variables
 dotenv.config();
@@ -24,9 +24,9 @@ app.use("/AdminDashboard", express.static(path.join(__dirname, "AdminDashboard")
 
 // Middleware
 app.use(cors({
-  origin: 'http://127.0.0.1:3000', // ✅ Allow requests from frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // ✅ Allow necessary methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // ✅ Allow necessary headers
+  origin: ["http://127.0.0.1:3000", "http://127.0.0.1:3001"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '1234',
+  password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'finale',
   waitForConnections: true,
   connectionLimit: 10,
